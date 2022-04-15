@@ -4,8 +4,10 @@
 * [About](#about)
 * [Features](#features)
 * [Usage](#usage)
+  * [CLI](#cli)
+  * [Arguments](#arguments)
 * [Installation](#installation)
-* [Technologies used](#technnologies-used)
+* [Technologies used](#technologies-used)
 * [Screenshots](#screenshots)
 
 
@@ -18,11 +20,11 @@ SmartCalc is a command line calculator with ability to do 3 types of calculation
 
 ## Features
 
-- calculate results of basic operations
-- assign and use variables
-- solve mathematical expressions
-- solve linear equation systems
-- perform different matrix operations
+- Calculate results of basic operations
+- Assign and use variables
+- Solve mathematical expressions
+- Solve linear equation systems
+- Perform different matrix operations
 
 ## Usage
 
@@ -79,19 +81,19 @@ Example of correct matrix format:
 |3 6 -5   | matrix row 3                         |
 
 
-#### Available commands:
-`/variables`                - shows all defined variables
-`/equation`                 - marks next input as equations
-`/matrix add`               - type to add matrices
-`/matrix multiple`          - type to multiply matrices
-`/matrix multiple by scalar`- type to multiply matrix by scalar
-`/matrix determinant`       - type to calculate matrix determinant
-`/matrix inverse`           - type to inverse matrix
-`/matrix transpose`         - type to transpose matrix
-`/matrix flip vertical`     - type to flip matrix vertically
-`/matrix flip horizontal`   - type to flip matrix horizontally
-`/help`                     - type to display this message
-`/exit`                     - type to exit program
+#### Available commands:<br/>
+`/variables` - shows all defined variables<br/>
+`/equation` - marks next input as equations<br/>
+`/matrix add` - type to add matrices<br/>
+`/matrix multiple` - type to multiply matrices<br/>
+`/matrix multiple by scalar` - type to multiply matrix by scalar<br/>
+`/matrix determinant` - type to calculate matrix determinant<br/>
+`/matrix inverse` - type to inverse matrix<br/>
+`/matrix transpose` - type to transpose matrix<br/>
+`/matrix flip vertical` - type to flip matrix vertically<br/>
+`/matrix flip horizontal` - type to flip matrix horizontally<br/>
+`/help` - type to display help message<br/>
+`/exit` - type to exit program
 
 ### Arguments
 
@@ -100,16 +102,16 @@ To multiply matrix by scalar, it's value should be put before matrix.
 When multiplying or adding matrices, they should be put one after another.
 
 
-#### Arguments:
+#### Available arguments:
 
-`-t, --type CALCULATION_TYPE`			calculation type
-`-m, --matrix-operation`				matrix operation type
-`-i, --input-file INPUTFILENAME`		name of the file with input data
-`-o, --output-file OUTPUTFILENAME`		name of the file with output data (default: INPUTFILENAME)
+`-t, --type CALCULATION_TYPE` - calculation type<br/>
+`-m, --matrix-operation` - matrix operation type<br/>
+`-i, --input-file INPUTFILENAME` - name of the file with input data<br/>
+`-o, --output-file OUTPUTFILENAME` - name of the file with output data (default: INPUTFILENAME)
 
 ## Installation
 
-1. Import this repository to some folder with `git clone repourl`
+1. Import this repository to some folder with `git clone https://github.com/adrian-jrczk/SmartCalc.git`
 2. Open this folder and install with `mvn clean install`
 3. In `target` folder there will be executable jar file `smartcalc.jar` which you can move freely and run with `java -jar smartcalc.jar`
 
@@ -120,5 +122,7 @@ When multiplying or adding matrices, they should be put one after another.
 ## Screenshots
 
 ![screenshot 1](images/screenshot01.png?raw=true "Expression calculation example")
+***
 ![screenshot 2](images/screenshot02.png?raw=true "Matrix operations example")
+***
 ![screenshot 3](images/screenshot03.png?raw=true "Solving linear equations example")
