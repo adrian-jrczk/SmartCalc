@@ -41,7 +41,12 @@ public class ArgumentsExecutor {
                     }
                 }
             }
-            FileUtils.saveResults(results, arguments.outputFileName);
+            if (arguments.outputFileName.isEmpty()) {
+                int dotIndex = arguments.inputFileName.lastIndexOf(".");
+                FileUtils.saveResults(results, arguments.inputFileName.substring(0, dotIndex) + "-results.txt");
+            } else {
+                FileUtils.saveResults(results, arguments.outputFileName);
+            }
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }

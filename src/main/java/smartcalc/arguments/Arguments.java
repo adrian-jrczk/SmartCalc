@@ -14,5 +14,5 @@ class Arguments {
     public String inputFileName;
 
     @Parameter(names = {"--output-file", "-o"})
-    public String outputFileName = "results.txt";
+    public String outputFileName = "";
 }

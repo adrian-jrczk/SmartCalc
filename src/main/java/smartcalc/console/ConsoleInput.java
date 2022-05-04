@@ -20,6 +20,7 @@ class ConsoleInput {
                     equations[row][col] = SCANNER.nextDouble();
                 }
             }
+            SCANNER.nextLine();
             return equations;
         } catch (InputMismatchException exception) {
             SCANNER.nextLine();
@@ -37,6 +38,7 @@ class ConsoleInput {
                     matrix[row][col] = SCANNER.nextDouble();
                 }
             }
+            SCANNER.nextLine();
             return matrix;
         } catch (InputMismatchException exception) {
             SCANNER.nextLine();
@@ -56,6 +58,7 @@ class ConsoleInput {
     }
 
     static String getLine() {
+        System.out.print(" > ");
         return StringUtils.optimizeElementsDistribution(SCANNER.nextLine());
     }
 }

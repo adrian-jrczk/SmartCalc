@@ -156,14 +156,14 @@ public class ConsoleInterface {
                 input:          | description
                 -------------------------------------------------------------
                 3 3             | number of rows and number of columns
-                1 2 2           |
-                2 4 -3          | matrix elements
-                3 6 -5          |
+                1 2 2           | matrix row 1
+                2 4 -3          | matrix row 2
+                3 6 -5          | matrix row 3
 
 
                 Available commands:
                 /variables                  - shows all defined variables
-                /equation                   - marks next input as equations
+                /equation                   - marks next input as equation system
                 /matrix add                 - type to add matrices
                 /matrix multiple            - type to multiply matrices
                 /matrix multiple by scalar  - type to multiply matrix by scalar
