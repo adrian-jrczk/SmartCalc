@@ -1,43 +1,31 @@
 package smartcalc.expression;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import java.util.HashMap;
-import java.util.Map;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ExpressionSolverTest {
 
-    /*
-        Map of <inputData, expectedResult>
-     */
-    private Map<String, String> testCases = new HashMap<>();
+    private ExpressionSolver solver = new ExpressionSolver();
 
-    @Test
-    void resolveRawInput() {
-        ExpressionSolver solver = new ExpressionSolver();
-        for (Map.Entry<String, String> testCase : testCases.entrySet()) {
-            try {
-                assertEquals(testCase.getValue(), solver.resolveRawInput(testCase.getKey()));
-            } catch (Exception exception) {
-                assertEquals(testCase.getValue(), exception.getMessage());
-            }
-        }
+    @ParameterizedTest
+    @MethodSource("smartcalc.expression.ParameterProvider#validExpressions")
+    void solveExpression_ValidExpression(String expression, String expectedResult) throws InvalidExpressionException, InvalidAssignmentException {
+        assertDoesNotThrow(() -> solver.resolveRawInput(expression));
+        assertEquals(expectedResult, solver.resolveRawInput(expression).trim());
     }
 
-    @BeforeEach
-    void assignTestCases() {
-        testCases.put("33 + 20 + 11 + 49 - 32 - 9 + 1 - 80 + 4", "-3");
-        testCases.put("5 --- 2 ++++++ 4 -- 2 ---- 1", "10");
-        testCases.put("12 * (-3 + 5 * (-2))", "-156");
-        testCases.put("4 * 3", "12");
-        testCases.put("7 + 3 * ((4 + 3) * 7 + 1) - 6 / (2 + 1)", "155");
-        testCases.put("3 + (9 + ( 68 * 3/9)) * ((7-2 * 5) / 2) * 6", "-282.000030");
-        testCases.put("7 - 1 = 5", "Invalid expression structure");
-        testCases.put("2 ************ 2", "Invalid element: '************'");
-        testCases.put("8 * (2 + 3", "Invalid expression structure");
-        testCases.put("2 // 2", "Invalid element: '//'");
-        testCases.put("a = 3\na + 5", "8");
-        testCases.put("n = 32\n33 + 20 + 11 + 49 - n - 9 + 1 - 80 + 4", "-3");
+    @ParameterizedTest
+    @MethodSource("smartcalc.expression.ParameterProvider#expressionsWithInvalidElement")
+    void solveExpression_ExpressionsWithInvalidElement(String expression, String expectedExceptionMessage) {
+        InvalidExpressionException exception = assertThrows(InvalidExpressionException.class, () -> solver.resolveRawInput(expression));
+        assertEquals(expectedExceptionMessage, exception.getMessage().trim());
+    }
+
+    @ParameterizedTest
+    @MethodSource("smartcalc.expression.ParameterProvider#expressionsWithInvalidStructure")
+    void solveExpression_ExpressionsWithInvalidStructure(String expression, String expectedExceptionMessage) {
+        InvalidExpressionException exception = assertThrows(InvalidExpressionException.class, () -> solver.resolveRawInput(expression));
+        assertEquals(expectedExceptionMessage, exception.getMessage().trim());
     }
 }
