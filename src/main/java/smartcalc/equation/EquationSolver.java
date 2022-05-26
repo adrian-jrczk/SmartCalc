@@ -9,6 +9,12 @@ public class EquationSolver {
     private List<String> swaps = new ArrayList<>();
 
     public String solve(double[][] equations) {
+        if (equations == null) {
+            return "Empty equations provided";
+        }
+        if (equations.length == 0) {
+            return "Empty equations provided";
+        }
         transformToRREForm(equations);
         reverseSwaps(equations);
         if (hasContradiction(equations)) {
