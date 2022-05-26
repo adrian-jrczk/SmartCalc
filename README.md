@@ -103,7 +103,7 @@ When multiplying or adding matrices, they should be put one after another.
 ## Installation
 
 1. Import this repository to some folder with `git clone https://github.com/adrian-jrczk/SmartCalc.git`
-2. Open this folder and install with `mvn clean install`
+2. Open this folder and install with `mvn clean package`
 3. In `target` folder there will be executable jar file `smartcalc.jar` which you can move freely and run with `java -jar smartcalc.jar`
 
 ## Technologies and tools
