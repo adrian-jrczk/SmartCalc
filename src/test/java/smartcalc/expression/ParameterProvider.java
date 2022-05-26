@@ -1,14 +1,9 @@
 package smartcalc.expression;
 
 import org.junit.jupiter.params.provider.Arguments;
-
 import java.util.stream.Stream;
 
 public class ParameterProvider {
-
-    static Stream<double[][]> emptyAndNullEquations() {
-        return Stream.of(null, new double[0][0]);
-    }
 
     static Stream<Arguments> validExpressions() {
         return Stream.of(
