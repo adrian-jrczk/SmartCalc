@@ -1,6 +1,6 @@
 # SmartCalc
 
-![screenshot 1](images/screenshot01.png?raw=true "Calculations showcase")
+![screenshot 1](images/screenshot.png?raw=true "Calculations showcase")
 
 ## About
 
