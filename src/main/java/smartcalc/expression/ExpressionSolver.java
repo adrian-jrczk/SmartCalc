@@ -1,5 +1,7 @@
 package smartcalc.expression;
 
+import smartcalc.data.InvalidAssignmentException;
+import smartcalc.data.Variables;
 import smartcalc.utils.StringUtils;
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -9,7 +11,7 @@ import static smartcalc.expression.ExpressionElementType.*;
 public class ExpressionSolver {
 
     private final Map<String, Integer> OPERATOR_PRIORITIES = Map.of("+", 1, "-", 1, "*", 2,"/", 2, "^", 3);
-    private final Map<String, String> variables = new HashMap<>();
+    private final Variables variables = Variables.getInstance();
 
     public String resolveRawInput(String data) throws InvalidAssignmentException, InvalidExpressionException {
         Scanner scanner = new Scanner(data);
@@ -17,7 +19,7 @@ public class ExpressionSolver {
         while (scanner.hasNext()) {
             String line = StringUtils.optimizeElementsDistribution(scanner.nextLine());
             switch (ExpressionInstruction.recognize(line)) {
-                case VARIABLE_ASSIGNMENT -> assignVariable(line);
+                case VARIABLE_ASSIGNMENT -> variables.assignVariable(line);
                 case EXPRESSION -> resultBuilder.append(solveExpression(line));
                 case INCORRECT -> throw new InvalidExpressionException("Invalid expression structure");
             }
@@ -55,11 +57,11 @@ public class ExpressionSolver {
             String item = scanner.next();
             switch (ExpressionElementType.recognize(item)) {
                 case VARIABLE:
-                    String variable = variables.get(item);
+                    String variable = variables.getValueOrDefault(item, null);
                     if (variable == null) {
                         throw new InvalidExpressionException("Unknown variable used: '" + item + "'");
                     }
-                    postfix.add(variables.get(item));
+                    postfix.add(variables.getValue(item));
                     break;
                 case NUMBER:
                     postfix.add(item);
@@ -116,29 +118,5 @@ public class ExpressionSolver {
         }
 
         return postfix;
-    }
-
-    public void assignVariable(String assignment) throws InvalidAssignmentException {
-        String[] elements = StringUtils.getAssignmentElements(assignment);
-        ExpressionElementType firstType = ExpressionElementType.recognize(elements[0]);
-        ExpressionElementType secondType = ExpressionElementType.recognize(elements[1]);
-        if (firstType == VARIABLE && (secondType == NUMBER || (secondType == VARIABLE && variables.containsKey(elements[1])))) {
-            variables.put(elements[0], variables.getOrDefault(elements[1], elements[1]));
-        } else {
-            throw new InvalidAssignmentException("Invalid assignment");
-        }
-    }
-
-    public String getAllVariables() {
-        StringBuilder builder = new StringBuilder();
-        variables.forEach((x, y) -> builder.append(x).append(" = ").append(y).append("\n"));
-        if (builder.length() == 0) {
-            return builder.append("No variables defined").toString();
-        }
-        return builder.toString();
-    }
-
-    public String getVariable(String variable) {
-        return variables.getOrDefault(variable, "Unknown variable");
     }
 }

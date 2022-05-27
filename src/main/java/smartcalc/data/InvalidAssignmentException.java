@@ -1,4 +1,4 @@
-package smartcalc.expression;
+package smartcalc.data;
 
 public class InvalidAssignmentException extends Exception {
     public InvalidAssignmentException(String message) {

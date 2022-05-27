@@ -2,7 +2,7 @@ package smartcalc.expression;
 
 import java.util.Arrays;
 
-enum ExpressionElementType {
+public enum ExpressionElementType {
 
     NUMBER("-?[0-9,.]+"),
     OPERATOR("[+-]+|[*/^]"),
@@ -16,7 +16,7 @@ enum ExpressionElementType {
         this.PATTERN = PATTERN;
     }
 
-    static ExpressionElementType recognize(String element) {
+    static public ExpressionElementType recognize(String element) {
         return Arrays.stream(ExpressionElementType.values())
                 .filter(x -> element.matches(x.PATTERN))
                 .findFirst()

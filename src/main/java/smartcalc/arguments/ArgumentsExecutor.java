@@ -4,7 +4,7 @@ import com.beust.jcommander.JCommander;
 import smartcalc.equation.EquationSolver;
 import smartcalc.equation.InvalidEquationException;
 import smartcalc.expression.ExpressionSolver;
-import smartcalc.expression.InvalidAssignmentException;
+import smartcalc.data.InvalidAssignmentException;
 import smartcalc.expression.InvalidExpressionException;
 import smartcalc.matrix.InvalidMatrixException;
 import smartcalc.matrix.MatrixOperator;

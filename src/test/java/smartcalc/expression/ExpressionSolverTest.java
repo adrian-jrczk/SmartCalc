@@ -2,6 +2,7 @@ package smartcalc.expression;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import smartcalc.data.InvalidAssignmentException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ExpressionSolverTest {

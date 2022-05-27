@@ -3,6 +3,7 @@ package smartcalc.console;
 import smartcalc.equation.EquationSolver;
 import smartcalc.equation.InvalidEquationException;
 import smartcalc.expression.ExpressionSolver;
+import smartcalc.data.Variables;
 import smartcalc.matrix.InvalidMatrixException;
 import smartcalc.matrix.MatrixOperator;
 import smartcalc.matrix.OperationNotAllowedException;
@@ -12,6 +13,7 @@ public class ConsoleInterface {
     private final EquationSolver equationSolver = new EquationSolver();
     private final ExpressionSolver expressionSolver = new ExpressionSolver();
     private final MatrixOperator matrixOperator = new MatrixOperator();
+    private final Variables variables = Variables.getInstance();
 
     public void open() {
         while (true) {
@@ -20,8 +22,8 @@ public class ConsoleInterface {
                 switch (InputRecognizer.recognize(inputLine)) {
                     case NUMBER -> System.out.println(inputLine);
                     case VARIABLE_ASSIGNMENT -> expressionSolver.assignVariable(inputLine);
-                    case VARIABLE_CALL -> System.out.println(expressionSolver.getVariable(inputLine));
-                    case SHOW_VARIABLES -> System.out.println(expressionSolver.getAllVariables());
+                    case VARIABLE_CALL -> System.out.println(variables.getValueOrDefault(inputLine, "Unknown variable"));
+                    case SHOW_VARIABLES -> System.out.println(variables.getAllVariablesString());
                     case EXPRESSION -> System.out.println(expressionSolver.solveExpression(inputLine));
                     case EQUATIONS_FLAG -> solveEquations();
                     case MATRIX_ADD -> addMatrices();
