@@ -17,7 +17,7 @@ public class ExpressionSolver {
         Scanner scanner = new Scanner(data);
         StringBuilder resultBuilder = new StringBuilder();
         while (scanner.hasNext()) {
-            String line = StringUtils.optimizeElementsDistribution(scanner.nextLine());
+            String line = StringUtils.separateElementsWithOneSpace(scanner.nextLine());
             switch (ExpressionInstruction.recognize(line)) {
                 case VARIABLE_ASSIGNMENT -> variables.assignVariable(line);
                 case EXPRESSION -> resultBuilder.append(solveExpression(line));

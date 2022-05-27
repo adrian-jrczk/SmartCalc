@@ -59,6 +59,6 @@ class ConsoleInput {
 
     static String getLine() {
         System.out.print(">>> ");
-        return StringUtils.optimizeElementsDistribution(SCANNER.nextLine());
+        return StringUtils.separateElementsWithOneSpace(SCANNER.nextLine());
     }
 }
