@@ -1,8 +1,10 @@
 package smartcalc.arguments;
 
 import com.beust.jcommander.JCommander;
+import smartcalc.data.Variables;
 import smartcalc.equation.EquationSolver;
 import smartcalc.equation.InvalidEquationException;
+import smartcalc.expression.ExpressionInstruction;
 import smartcalc.expression.ExpressionSolver;
 import smartcalc.data.InvalidAssignmentException;
 import smartcalc.expression.InvalidExpressionException;
@@ -17,6 +19,7 @@ public class ArgumentsExecutor {
     private final EquationSolver equationSolver = new EquationSolver();
     private final ExpressionSolver expressionSolver = new ExpressionSolver();
     private final MatrixOperator matrixOperator = new MatrixOperator();
+    private final Variables variables = Variables.getInstance();
 
     public void run(String[] args) {
         try {
@@ -58,7 +61,17 @@ public class ArgumentsExecutor {
     }
 
     private String solveExpression(String fileData) throws InvalidExpressionException, InvalidAssignmentException {
-        return expressionSolver.resolveRawInput(fileData);
+        Scanner scanner = new Scanner(fileData);
+        StringBuilder resultBuilder = new StringBuilder();
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            switch (ExpressionInstruction.recognize(line)) {
+                case VARIABLE_ASSIGNMENT -> variables.assignVariable(line);
+                case EXPRESSION -> resultBuilder.append(expressionSolver.solve(line));
+                case INCORRECT -> throw new InvalidExpressionException("Invalid expression structure");
+            }
+        }
+        return resultBuilder.toString();
     }
 
     private String addMatrices(String fileData) throws InvalidMatrixException, OperationNotAllowedException {

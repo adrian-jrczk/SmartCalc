@@ -21,10 +21,10 @@ public class ConsoleInterface {
                 String inputLine = ConsoleInput.getLine();
                 switch (InputRecognizer.recognize(inputLine)) {
                     case NUMBER -> System.out.println(inputLine);
-                    case VARIABLE_ASSIGNMENT -> expressionSolver.assignVariable(inputLine);
+                    case VARIABLE_ASSIGNMENT -> variables.assignVariable(inputLine);
                     case VARIABLE_CALL -> System.out.println(variables.getValueOrDefault(inputLine, "Unknown variable"));
                     case SHOW_VARIABLES -> System.out.println(variables.getAllVariablesString());
-                    case EXPRESSION -> System.out.println(expressionSolver.solveExpression(inputLine));
+                    case EXPRESSION -> System.out.println(expressionSolver.solve(inputLine));
                     case EQUATIONS_FLAG -> solveEquations();
                     case MATRIX_ADD -> addMatrices();
                     case MATRIX_MULTIPLY -> multiplyMatrices();

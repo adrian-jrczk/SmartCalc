@@ -3,7 +3,7 @@ package smartcalc.arguments;
 import com.beust.jcommander.IParameterValidator;
 import com.beust.jcommander.ParameterException;
 
-class ModeValidator implements IParameterValidator {
+public class ModeValidator implements IParameterValidator {
     @Override
     public void validate(String name, String value) throws ParameterException {
         if (!value.matches("equation|expression|matrix")) {

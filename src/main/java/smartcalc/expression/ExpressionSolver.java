@@ -1,6 +1,5 @@
 package smartcalc.expression;
 
-import smartcalc.data.InvalidAssignmentException;
 import smartcalc.data.Variables;
 import smartcalc.utils.StringUtils;
 import java.math.BigDecimal;
@@ -13,22 +12,9 @@ public class ExpressionSolver {
     private final Map<String, Integer> OPERATOR_PRIORITIES = Map.of("+", 1, "-", 1, "*", 2,"/", 2, "^", 3);
     private final Variables variables = Variables.getInstance();
 
-    public String resolveRawInput(String data) throws InvalidAssignmentException, InvalidExpressionException {
-        Scanner scanner = new Scanner(data);
-        StringBuilder resultBuilder = new StringBuilder();
-        while (scanner.hasNext()) {
-            String line = StringUtils.separateElementsWithOneSpace(scanner.nextLine());
-            switch (ExpressionInstruction.recognize(line)) {
-                case VARIABLE_ASSIGNMENT -> variables.assignVariable(line);
-                case EXPRESSION -> resultBuilder.append(solveExpression(line));
-                case INCORRECT -> throw new InvalidExpressionException("Invalid expression structure");
-            }
-        }
-        return resultBuilder.toString();
-    }
-
-    public String solveExpression(String expression) throws InvalidExpressionException  {
-        List<String> postfix = transformToPostfix(expression);
+    public String solve(String rawExpression) throws InvalidExpressionException  {
+        String optimizedExpression = StringUtils.separateElementsWithOneSpace(rawExpression);
+        List<String> postfix = transformToPostfix(optimizedExpression);
         Stack<BigDecimal> numStack = new Stack<>();
         for (String element : postfix) {
             if (ExpressionElementType.recognize(element) == NUMBER) {
@@ -105,7 +91,7 @@ public class ExpressionSolver {
                     }
                     break;
                 case INVALID:
-                    throw new InvalidExpressionException(String.format("Invalid element: '%s'", item));
+                    throw new InvalidExpressionException(String.format("Invalid expression element: '%s'", item));
             }
             previousScannerElement = item;
         }

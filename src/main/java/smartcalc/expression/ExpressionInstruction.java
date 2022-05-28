@@ -2,11 +2,11 @@ package smartcalc.expression;
 
 import java.util.Arrays;
 
-enum ExpressionInstruction {
+public enum ExpressionInstruction {
 
     EMPTY_LINE("^$"),
-    VARIABLE_ASSIGNMENT("[a-zA-Z_]+ = \\w+"),
-    EXPRESSION("^[a-zA-Z0-9+\\-*/()^ ]+"),
+    VARIABLE_ASSIGNMENT("[a-zA-Z_]+\\s*=\\s*[0-9a-zA-Z,.]+"),
+    EXPRESSION("^[a-zA-Z0-9+\\-*/()^., ]+"),
     INCORRECT(".*");
 
     private final String PATTERN;
@@ -15,7 +15,7 @@ enum ExpressionInstruction {
         this.PATTERN = pattern;
     }
 
-    static ExpressionInstruction recognize(String line) {
+    public static ExpressionInstruction recognize(String line) {
         return Arrays.stream(ExpressionInstruction.values())
                 .filter(x -> line.matches(x.PATTERN))
                 .findFirst()
